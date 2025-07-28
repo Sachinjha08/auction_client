@@ -72,7 +72,7 @@ const Header = () => {
       text: "Register",
       icon: <AppRegistrationIcon />,
     },
-  ].filter(Boolean); // remove false values
+  ].filter(Boolean); // Remove any false entries
 
   return (
     <>
@@ -139,9 +139,15 @@ const Header = () => {
         </Toolbar>
       </AppBar>
 
+      {/* Drawer for mobile */}
       <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer}>
         <Box
-          sx={{ width: 250 }}
+          sx={{
+            width: 250,
+            background: "#0056b3",
+            height: "100%",
+            color: "#fff",
+          }}
           role="presentation"
           onClick={toggleDrawer}
           onKeyDown={toggleDrawer}
@@ -150,16 +156,39 @@ const Header = () => {
             {menuItems.map((item, index) =>
               item.to ? (
                 <ListItem key={index} disablePadding>
-                  <ListItemButton component={RouterLink} to={item.to}>
-                    <ListItemIcon>{item.icon}</ListItemIcon>
-                    <ListItemText primary={item.text} />
+                  <ListItemButton
+                    component={RouterLink}
+                    to={item.to}
+                    sx={{
+                      color: "#fff",
+                      "&:hover": {
+                        backgroundColor: "#007acc",
+                      },
+                    }}
+                  >
+                    <ListItemIcon sx={{ color: "#fff" }}>{item.icon}</ListItemIcon>
+                    <ListItemText
+                      primary={item.text}
+                      primaryTypographyProps={{ color: "#fff" }}
+                    />
                   </ListItemButton>
                 </ListItem>
               ) : (
                 <ListItem key={index} disablePadding>
-                  <ListItemButton onClick={item.action}>
-                    <ListItemIcon>{item.icon}</ListItemIcon>
-                    <ListItemText primary={item.text} />
+                  <ListItemButton
+                    onClick={item.action}
+                    sx={{
+                      color: "#fff",
+                      "&:hover": {
+                        backgroundColor: "#007acc",
+                      },
+                    }}
+                  >
+                    <ListItemIcon sx={{ color: "#fff" }}>{item.icon}</ListItemIcon>
+                    <ListItemText
+                      primary={item.text}
+                      primaryTypographyProps={{ color: "#fff" }}
+                    />
                   </ListItemButton>
                 </ListItem>
               )
