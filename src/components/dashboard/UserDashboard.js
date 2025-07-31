@@ -197,22 +197,51 @@ const UserDashboard = () => {
           <Typography variant="h6" sx={{ mt: 2 }}>
             Transaction History
           </Typography>
-          <List>
-            {transactions.length === 0 && (
-              <ListItem>
-                <ListItemText primary="No transactions yet." />
-              </ListItem>
-            )}
-            {transactions.map((t, i) => (
-              <ListItem key={i}>
-                <ListItemText
-                  primary={`${
-                    t.date ? new Date(t.date).toLocaleString() : ""
-                  } - ${t.type} - $${t.amount} - ${t.description}`}
-                />
-              </ListItem>
-            ))}
-          </List>
+          <Box
+            sx={{
+              maxHeight: 200,
+              overflowY: "auto",
+              background: "rgba(255,255,255,0.15)",
+              borderRadius: 2,
+              p: 1,
+              mt: 1,
+            }}
+          >
+            <List dense>
+              {transactions.length === 0 ? (
+                <ListItem>
+                  <ListItemText
+                    primary="No transactions yet."
+                    sx={{ color: "#fff" }}
+                  />
+                </ListItem>
+              ) : (
+                transactions.map((t, i) => (
+                  <ListItem key={i} divider>
+                    <ListItemText
+                      primary={
+                        <>
+                          <Typography
+                            sx={{
+                              fontSize: 14,
+                              fontWeight: 500,
+                              color: "#fff",
+                            }}
+                          >
+                            {t.date ? new Date(t.date).toLocaleString() : ""} –{" "}
+                            {t.type} – ${t.amount}
+                          </Typography>
+                          <Typography sx={{ fontSize: 12, color: "#e0f7fa" }}>
+                            {t.description}
+                          </Typography>
+                        </>
+                      }
+                    />
+                  </ListItem>
+                ))
+              )}
+            </List>
+          </Box>
         </Box>
         <Typography variant="h5" sx={{ fontWeight: 700, mb: 1 }}>
           Your Auctions
